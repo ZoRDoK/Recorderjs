@@ -15,6 +15,10 @@
       command: 'init',
       config: {
         sampleRate: this.context.sampleRate
+        channels: config.channels || 1,
+        sampleRateOut: config.sampleRateOut || 22050,
+        sampleRate: config.sampleRate || 44100,
+        bitrate: config.bitrate || 128
       }
     });
     var recording = false,
