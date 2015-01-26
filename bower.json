@@ -11,9 +11,9 @@
   "homepage": "https://github.com/mattdiamond/Recorderjs",
   "main": [
     "recorder.js",
-    "recorderWorker.js"
-    "recorderWorkerMP3.js"
-    "vendor/libmp3lame.js"
+    "recorderWorker.js",
+    "recorderWorkerMP3.js",
+    "vendor/libmp3lame.js",
     "vendor/libmp3lame.min.js"
   ]  
 }
