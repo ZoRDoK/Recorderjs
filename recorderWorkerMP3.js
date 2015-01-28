@@ -2,7 +2,8 @@ importScripts('libmp3lame.js');
 
 var mp3codec,
   recBuffers = [],
-  recLength = 0;
+  recLength = 0,
+  configScript = {};
 
 this.onmessage = function(e) {
   switch (e.data.command) {
@@ -27,17 +28,15 @@ this.onmessage = function(e) {
 // The channels is set to mono and listenning to channel 1 which is the left channel.
 // There is some problem with stereo channel support.
 function init(config) {
-  if (!config) {
-    config = {};
-  }
+  configScript = config;
 
   mp3codec = Lame.init();
 
-  Lame.set_mode(mp3codec, config.mode || Lame.MONO);
-  Lame.set_num_channels(mp3codec, config.channels || 1);
-  Lame.set_out_samplerate(mp3codec, config.sampleRateOut || 22050);
-  Lame.set_in_samplerate(mp3codec, config.sampleRate || 44100);
-  Lame.set_bitrate(mp3codec, config.bitrate || 128);
+  Lame.set_mode(mp3codec, configScript.mode || Lame.MONO);
+  Lame.set_num_channels(mp3codec, configScript.channels || 1);
+  Lame.set_out_samplerate(mp3codec, configScript.sampleRateOut || 22050);
+  Lame.set_in_samplerate(mp3codec, configScript.sampleRate || 44100);
+  Lame.set_bitrate(mp3codec, configScript.bitrate || 128);
 
   Lame.init_params(mp3codec);
 }
@@ -72,6 +71,16 @@ function exportAudio() {
 function clear() {
   recBuffers = [];
   recLength = 0;
+  
+  mp3codec = Lame.init();
+
+  Lame.set_mode(mp3codec, configScript.mode || Lame.MONO);
+  Lame.set_num_channels(mp3codec, configScript.channels || 1);
+  Lame.set_out_samplerate(mp3codec, configScript.sampleRateOut || 22050);
+  Lame.set_in_samplerate(mp3codec, configScript.sampleRate || 44100);
+  Lame.set_bitrate(mp3codec, configScript.bitrate || 128);
+
+  Lame.init_params(mp3codec);
 }
 
 function mergeBuffers(recBuffers, recLength) {
