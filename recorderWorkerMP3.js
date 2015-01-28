@@ -70,9 +70,6 @@ function exportAudio() {
 // Close the Lame encoder object stream, empty out the data in buffer and
 // reset the buffer length stored.
 function clear() {
-  Lame.close(mp3codec);
-  mp3codec = null;
-
   recBuffers = [];
   recLength = 0;
 }
